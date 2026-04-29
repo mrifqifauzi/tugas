@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tugas My Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #fef9c3 0%, #f0f9ff 50%, #fae8ff 100%);
+            min-height: 100vh;
+        }
+        .card-pop {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-pop:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .blob {
+            position: fixed;
+            z-index: -1;
+            filter: blur(60px);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Background Decoration -->
+    <div class="blob w-64 h-64 bg-yellow-300 rounded-full top-10 left-10 floating"></div>
+    <div class="blob w-96 h-96 bg-purple-300 rounded-full bottom-10 right-10 floating" style="animation-delay: -3s;"></div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 px-4 py-4">
+        <div class="max-w-6xl mx-auto bg-white/70 backdrop-blur-xl border border-white/50 rounded-3xl shadow-xl px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-br from-yellow-400 to-orange-500 p-3 rounded-2xl shadow-lg transform -rotate-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-purple-600">My Tugas<span class="text-slate-800">My Adventure!</span></h1>
+            </div>
+
+            <div class="flex flex-col sm:flex-row w-full md:w-auto gap-3">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    placeholder="Cari tugas seru kamu..." 
+                    class="px-6 py-3 rounded-2xl border-2 border-orange-100 focus:border-orange-400 focus:outline-none w-full sm:w-64 text-sm font-medium shadow-inner transition-all"
+                >
+                <select 
+                    id="categoryFilter"
+                    class="px-6 py-3 rounded-2xl border-2 border-purple-100 focus:border-purple-400 focus:outline-none text-sm font-bold shadow-inner cursor-pointer appearance-none bg-white"
+                >
+                    <option value="all">🌈 Semua Kategori</option>
+                    <option value="perkuliahan">📚 Perkuliahan</option>
+                    <option value="projek">💻 Projek</option>
+                    <option value="pelatihan">🏆 Pelatihan</option>
+                    <option value="lainnya">✨ Lainnya</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <!-- Hero -->
+        <div class="mb-16 text-center">
+            <h2 class="text-4xl md:text-6xl font-black mb-4 text-slate-900 leading-tight">
+                My Task <br> 
+                <span class="bg-yellow-300 px-4 rounded-lg italic">My Adventure!</span> 🎨
+            </h2>
+            <p class="text-lg text-slate-600 font-medium max-w-xl mx-auto">Ayo selesaikan tantangan hari ini dan jadilah versi terbaik dirimu!</p>
+        </div>
+
+        <!-- Task Grid -->
+        <div id="taskGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Cards via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20 bg-white/50 rounded-3xl border-4 border-dashed border-slate-200">
+            <div class="text-6xl mb-4">🏜️</div>
+            <p class="text-xl font-bold text-slate-400">Oops! Tugasnya nggak ketemu nih.</p>
+        </div>
+    </main>
+
+    <footer class="py-12 text-center">
+        <p class="font-bold text-slate-500 uppercase tracking-widest text-xs mb-2">Build with ❤️ and Coffee</p>
+        <p class="text-slate-400 text-sm">© 2024 Portal Tugas Ceria. Semangat Belajar!</p>
+    </footer>
+
+    <script>
+        const tasks = [
+            {
+                id: 1,
+                title: "Tugas 1",
+                description: "Pembelajaran Mendalam",
+                category: "pelatihan",
+                date: "28 April 2026",
+                link: "https://drive.google.com/drive/folders/1YP5Pp2mhawSy9PyfKJzKfxgG-vu_b-zl?usp=sharing",
+                emoji: "🔍",
+                color: "rose"
+            },
+            {
+                id: 2,
+                title: "Tugas 2",
+                description: "Analisis Game House Internasional vs Lokal",
+                category: "pelatihan",
+                date: "29 April 2026",
+                link: "https://docs.google.com/presentation/d/1gxFcF7AEqRwcZpDcmllb5tMzGvSFOL9HKi4n5_1PWGY/edit?usp=sharing",
+                emoji: "🎨",
+                color: "amber"
+            },
+        
+        ];
+
+        const taskGrid = document.getElementById('taskGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const emptyState = document.getElementById('emptyState');
+
+        function renderTasks(filterText = '', filterCategory = 'all') {
+            taskGrid.innerHTML = '';
+            
+            const filtered = tasks.filter(task => {
+                const matchesSearch = task.title.toLowerCase().includes(filterText.toLowerCase()) || 
+                                     task.description.toLowerCase().includes(filterText.toLowerCase());
+                const matchesCategory = filterCategory === 'all' || task.category === filterCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                filtered.forEach(task => {
+                    const card = document.createElement('div');
+                    
+                    const colors = {
+                        rose: "from-rose-400 to-red-500 shadow-rose-200",
+                        amber: "from-amber-400 to-orange-500 shadow-amber-200",
+                        emerald: "from-emerald-400 to-teal-500 shadow-emerald-200",
+                        sky: "from-sky-400 to-blue-500 shadow-sky-200",
+                        violet: "from-violet-400 to-purple-500 shadow-violet-200"
+                    };
+
+                    const selectedColor = colors[task.color] || colors.sky;
+
+                    card.className = "card-pop bg-white p-2 rounded-[2.5rem] shadow-xl border border-white flex flex-col h-full";
+                    
+                    card.innerHTML = `
+                        <div class="bg-gradient-to-br ${selectedColor} rounded-[2rem] p-6 h-full flex flex-col">
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
+                                    ${task.category}
+                                </span>
+                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg text-xl">
+                                    ${task.emoji}
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-white text-xl font-extrabold mb-3 leading-tight uppercase tracking-tight">${task.title}</h3>
+                            <p class="text-white/80 text-sm font-medium mb-8 flex-grow leading-relaxed">
+                                ${task.description}
+                            </p>
+                            
+                            <div class="mt-auto">
+                                <div class="flex items-center gap-2 mb-4 text-white/60 font-bold text-[10px]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    ${task.date}
+                                </div>
+                                <a href="${task.link}" target="_blank" class="flex items-center justify-center w-full bg-white text-slate-900 hover:scale-95 px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg active:scale-90">
+                                    Lihat Detail ✨
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    taskGrid.appendChild(card);
+                });
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => renderTasks(e.target.value, categoryFilter.value));
+        categoryFilter.addEventListener('change', (e) => renderTasks(searchInput.value, e.target.value));
+
+        window.onload = () => renderTasks();
+    </script>
+</body>
+</html>
